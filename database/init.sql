@@ -1,8 +1,3 @@
-CREATE DATABASE claimsdb;
-
-CREATE USER claimsuser WITH PASSWORD 'claimspassword';
-
-GRANT ALL PRIVILEGES ON DATABASE claimsdb TO claimsuser;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
