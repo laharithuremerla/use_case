@@ -9,11 +9,11 @@ app = Flask(__name__)
 CORS(app)
 
 DB_CONFIG = {
-    "host": os.getenv("DB_HOST", "database"),
+    "host": os.getenv("DB_HOST", "localhost"),
     "database": os.getenv("DB_NAME", "claimsdb"),
     "user": os.getenv("DB_USER", "claimsuser"),
-    "password": os.getenv("DB_PASSWORD", "claimspassword"),
-    "port": int(os.getenv("DB_PORT", "5432"))
+    "password": os.getenv("DB_PASSWORD", "Claims@123"),
+    "port": int(os.getenv("DB_PORT", "5433"))
 }
 
 def get_db():
@@ -239,5 +239,7 @@ def login():
         return jsonify({"error": str(e)}), 500
 
 
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    port = int(os.getenv("PORT", "5001"))
+    app.run(host="0.0.0.0", port=port, debug=False)
