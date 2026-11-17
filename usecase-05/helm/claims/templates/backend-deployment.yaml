@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: claims-backend
+  labels:
+    app: claims-backend
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: claims-backend
+  template:
+    metadata:
+      labels:
+        app: claims-backend
+    spec:
+      containers:
+        - name: claims-backend
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+          ports:
+            - containerPort: 5001
+          env:
+            - name: DB_HOST
+              value: "claims-db"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_NAME
+              value: "claimsdb"
+            - name: DB_USER
+              value: "claimsuser"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: claims-db-secret
+                  key: POSTGRES_PASSWORD
+            - name: PORT
+              value: "5001"
