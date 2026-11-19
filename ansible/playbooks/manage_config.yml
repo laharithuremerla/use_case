@@ -1,0 +1,16 @@
+---
+- name: Manage local configuration file
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: false
+
+  tasks:
+    - name: Create managed configuration file
+      ansible.builtin.copy:
+        dest: /tmp/usecase07-managed.conf
+        content: |
+          application=claims-management
+          environment=development
+          managed_by=ansible
+        mode: '0644'
